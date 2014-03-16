@@ -1,6 +1,6 @@
 # dynamodb_explorer
 
-FIXME
+WebApp to explore Dyanamodb database
 
 ## Prerequisites
 
@@ -10,10 +10,16 @@ You will need [Leiningen][1] 1.7.0 or above installed.
 
 ## Running
 
+Set the following environment variables:
+
+* AWS_ACCESS_KEY
+* AWS_SECRET_KEY
+* DYNAMODB_ENDPOINT
+
 To start a web server for the application, run:
 
     lein ring server
 
 ## License
 
-Copyright © 2014 FIXME
+Copyright © 2014
