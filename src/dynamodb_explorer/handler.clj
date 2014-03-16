@@ -8,7 +8,8 @@
             [ring.middleware.reload :as rl]
             [dynamodb_explorer.pages :as p]
             [dynamodb_explorer.db :as db]
-            [compojure.route :as route]))
+            [compojure.route :as route])
+  (:gen-class :main true))
 
 (defroutes json-routes
            (POST "/table/describe" [name] (response  (db/describe-table name)))
@@ -39,7 +40,7 @@
          (fn [s]
            (if s
              (do (println "Server already running!") s)
-             (do (let [port (or port 9090)]
+             (do (let [port (or (Integer/parseInt port) 9090)]
                    (println "Booting server on port " port)
                    (run-server (rl/wrap-reload #'app) {:port port})))))))
 
