@@ -9,6 +9,13 @@ $('#describe').click(function() {
     });
 });
 
+$('#scan').click(function() {
+    var tableName = $('#table').val();
+    $.post('/table/scan', {name: tableName}, function(data) {
+        $('#data').JSONView(data);
+    });
+});
+
 $('#get').click(function() {
     var tableName = $('#table').val();
     var hash = $('input#item-hash').val();
