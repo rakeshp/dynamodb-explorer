@@ -8,7 +8,6 @@
             [ring.middleware.reload :as rl]
             [dynamodb_explorer.pages :as p]
             [dynamodb_explorer.db :as db]
-            [clojure.data.json :as json]
             [compojure.route :as route]))
 
 (defroutes json-routes
