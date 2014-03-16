@@ -36,3 +36,8 @@
     (far/get-item creds table-name key-map)))
 
 
+(defn scan [table-name]
+  (let [result
+        (far/scan creds table-name {:limit 20})]
+    {:result result}))
+

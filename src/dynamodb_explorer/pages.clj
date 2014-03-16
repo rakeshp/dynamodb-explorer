@@ -17,16 +17,15 @@
      [:head
       [:title "Explorer"]
       [:link {:rel "stylesheet" :href "/jquery.jsonview.css"}]
-      [:link {:rel "stylesheet" :href "/jquery.dynatable.css"}]
       [:script {:type "text/javascript" :src "http://code.jquery.com/jquery.min.js"}]
       [:script {:type "text/javascript" :src "/jquery.jsonview.js"}]
-      [:script {:type "text/javascript" :src "/jquery.dynatable.js"}]
       ]
      [:body
       [:label "Table: "]
       [:select#table
        [:option "--select--"] (for [x tables] [:option x])]
       [:button#describe "Describe"]
+      [:button#scan "Scan"]
       [:br] [:br]
       [:label "Hash: "] [:input#item-hash {:type "text"}]  [:br]
       [:label "Range: "][:input#item-range {:type "text"}] [:br]

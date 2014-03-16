@@ -14,6 +14,7 @@
 (defroutes json-routes
            (POST "/table/describe" [name] (response  (db/describe-table name)))
            (POST "/table/get-item" [name hash range] (response  (db/get-item name hash range)))
+           (POST "/table/scan" [name] (response  (db/scan name)))
            )
 
 
@@ -40,7 +41,7 @@
          (fn [s]
            (if s
              (do (println "Server already running!") s)
-             (do (let [port (or (Integer/parseInt port) 9090)]
+             (do (let [port (Integer/parseInt (or port "9090"))]
                    (println "Booting server on port " port)
                    (run-server (rl/wrap-reload #'app) {:port port})))))))
 
@@ -53,4 +54,4 @@
   "Cycles the existing server - shut down the relaunch."
   []
   (kill!)
-  (-main 9090))
+  (-main "9090"))
