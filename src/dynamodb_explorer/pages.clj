@@ -17,20 +17,24 @@
      [:head
       [:title "Explorer"]
       [:link {:rel "stylesheet" :href "/jquery.jsonview.css"}]
+      [:link {:rel "stylesheet" :href "/jquery.dynatable.css"}]
       [:script {:type "text/javascript" :src "http://code.jquery.com/jquery.min.js"}]
       [:script {:type "text/javascript" :src "/jquery.jsonview.js"}]
+      [:script {:type "text/javascript" :src "/jquery.dynatable.js"}]
       ]
      [:body
       [:label "Table: "]
-      [:select#table (for [x tables] [:option x])]
+      [:select#table
+       [:option "--select--"] (for [x tables] [:option x])]
       [:button#describe "Describe"]
       [:br] [:br]
-      [:label "Id: "] [:input#item-id {:type "text"}] [:button#get "Get"]
+      [:label "Hash: "] [:input#item-hash {:type "text"}]  [:br]
+      [:label "Range: "][:input#item-range {:type "text"}] [:br]
+      [:button#get "Get"]
       [:br]
       [:h2 "Data"]
       [:br]
       [:div#data]
 
-      (hiccup/include-js "/js/home.js")
-      ]
+      (hiccup/include-js "/js/home.js")]
      ]))

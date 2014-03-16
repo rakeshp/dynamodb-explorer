@@ -13,8 +13,10 @@
 
 (defroutes json-routes
            (POST "/table/describe" [name] (response  (db/describe-table name)))
-           (POST "/table/get-item" [name id] (response  (db/get-item name id)))
+           (POST "/table/get-item" [name hash range] (response  (db/get-item name hash range)))
            )
+
+
 (defroutes app-routes
   (GET "/" [] (p/home (db/list-tables)))
   (wrap-json-response json-routes)
@@ -33,13 +35,14 @@
 (defn kill! []
   (swap! server (fn [s] (when s (s) nil))))
 
-(defn -main []
+(defn -main [& [port]]
   (swap! server
          (fn [s]
            (if s
              (do (println "Server already running!") s)
-             (do (println "Booting server on port 8080.")
-                 (run-server (rl/wrap-reload #'app) {:port 8080}))))))
+             (do (let [port (or port 9090)]
+                   (println "Booting server on port " port)
+                   (run-server (rl/wrap-reload #'app) {:port port})))))))
 
 (defn running?
   "Returns true if the server is currently running, false otherwise."
@@ -50,4 +53,4 @@
   "Cycles the existing server - shut down the relaunch."
   []
   (kill!)
-  (-main))
+  (-main 9090))

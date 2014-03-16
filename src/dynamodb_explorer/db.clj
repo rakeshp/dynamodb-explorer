@@ -16,14 +16,23 @@
       (far/describe-table creds table-name))
 
 
-(defn find-hash-key [table-name]
+(defn find-key [table-name key-type]
   (let [table-description (describe-table table-name)
         primary-keys (get-in table-description [:prim-keys])
-        [hash-key]  (for [[k v] primary-keys :when (= (:key-type v) :hash)] k)]
-    hash-key))
+        [key]  (for [[k v] primary-keys :when (= (:key-type v) key-type)] k)]
+    key))
 
-(defn get-item [table-name id]
-  (let [hash-key (find-hash-key table-name)]
-    (far/get-item creds table-name {hash-key id})))
+(defn find-hash-key [table-name]
+  (find-key table-name :hash))
+
+(defn find-range-key [table-name]
+  (find-key table-name :range))
+
+(defn get-item [table-name hash range]
+  (let [hash-key (find-hash-key table-name)
+        key-map {hash-key hash}
+        range-key (if (and range (not= range "")) (find-range-key table-name))
+        key-map (if (and range (not= range "")) (assoc-in key-map range-key range) key-map)]
+    (far/get-item creds table-name key-map)))
 
 
